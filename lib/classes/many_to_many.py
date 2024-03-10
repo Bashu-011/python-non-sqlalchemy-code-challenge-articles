@@ -64,19 +64,23 @@ class Magazine:
     def __init__(self, name, category):
         self._name = name
         self._category = category
-    
+# getter method for name 
     @property
     def name(self):
         return self._name
+#setter for category
     @property
     def category(self):
         return self._category
+   #setter method for name 
     @name.setter
     def name(self,new_name):
         if isinstance (new_name,str):
             if len(new_name)>=2 and len(new_name) <=16:
                 self._name = new_name
         return self._name
+    
+    # setter method for category
     @category.setter
     def category(self,new_category):
         if isinstance (new_category,str):
@@ -84,16 +88,20 @@ class Magazine:
                 self._category = new_category
         return self._name
     
+    #method to retrive articles
     def articles(self):
         return [article for article in Article.all if article.magazine == self]
 
+    #method to get the contributors of a magazine
     def contributors(self):
         return list(set([article.author for article in self.articles()]))
-
+    
+    # method to get the titles of articles
     def article_titles(self):
         titles = [article.title for article in self.articles()]
         return titles if titles else None
 
+#method to get authors who contributed more than 2 articles
     def contributing_authors(self):
         authors = {}
         for article in self.articles():
