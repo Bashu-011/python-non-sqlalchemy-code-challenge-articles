@@ -15,42 +15,51 @@ class Article:
     @property
     def title(self):
         return self._title
-
+    
+#setter method for the title
     @title.setter
     def title(self, new_title):
         return self._title
-        raise AttributeError("Title is immutable")
-        
 
+
+#initialize the author with a name
 class Author:
+    #private attribute of name
     def __init__(self, name):
         self._name = name
-        
+
+     #getter method for name   
     @property
     def name(self):
         return self._name
-    
+    # setter method for name
     @name.setter
     def name(self, new_name):
         self.new_name = new_name
         return self._name
     
+    #get articles written by the author
     def articles(self):
         return [article for article in Article.all if article.author == self]
-
+   
+    #get the magazines the authour has contributed to
     def magazines(self):
         return list(set([article.magazine for article in self.articles()]))
 
+    #add an article written by the auothor
     def add_article(self, magazine, title):
         article = Article(self, magazine, title)
         return article
 
+     # get the topics authour has contributed to
     def topic_areas(self):
         return list(set([article.magazine.category for article in self.articles()])) if self.articles() else None
-
+   
+    # method to get contributing authors
     def contributing_authors(self):
         return [author for author in Author.all if len(author.articles()) > 0]
 
+#initialize magazine with name and category
 class Magazine:
     def __init__(self, name, category):
         self._name = name
